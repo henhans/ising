@@ -8,6 +8,7 @@
 #include <stdlib.h>
 #include <cstdlib>
 #include <math.h>
+#include <cmath>
 
 
 /*-------------------------Constructor ------------------------------*/
@@ -86,5 +87,17 @@ double Lattice::get_M()
     M+=spin[i];
   }
 
-  return ((double) M/_N);
+  return abs(((double) M/_N));
+}
+
+double Lattice::get_E()
+{
+  int E=0;
+   for(int i=0; i<_N; i++)
+   {
+     int x=i%_L; 
+     int y=i/_L;
+     E-=spin[i]*(spin[((x+1)%_L)+y*_L]+spin[x+((y+1)%_L)*_L]);
+   }
+   return ((double) E/_N);
 }
